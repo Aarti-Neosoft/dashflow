@@ -1,30 +1,49 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { MdDashboard } from "react-icons/md";
+import { useDispatch } from "react-redux";
+import { login } from "../features/auth/authSlice";
 
 
 function Login() {
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleLogin = (e) => {
     e.preventDefault();
-    if (email && password.length >= 6) {
-      const name = email.split("@")[0];
-      localStorage.setItem("loggedInUser", JSON.stringify({ name, email }));
-      navigate("/dashboard");
-    } else {
-      alert("Enter valid details");
+
+    if (!email || password.length < 6) {
+      alert("User not found. Please signup first");
+      return;
     }
+
+    const storedUsers = JSON.parse(localStorage.getItem("users")) || [];
+    const existingUser = storedUsers.find(
+      (user) => user.email === email && user.password === password
+    );
+
+    if (!existingUser) {
+      alert("❌ User not found. Please create account first.");
+      return;
+    }
+
+    const role = existingUser.role === "Admin" ? "admin" : "user";
+    const name = existingUser.name;
+    localStorage.setItem(
+      "loggedInUser",
+      JSON.stringify({ name, email, role })
+    );
+    dispatch(login({ user: name, role }));
+    navigate("/dashboard");
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#020617] via-[#020617] to-[#0f172a]">
       <div className="w-full max-w-md p-8 rounded-2xl bg-[#0b1220]/80 backdrop-blur-xl border border-white/10 shadow-2xl text-white mx-4">
         <div className="flex items-center gap-3 mb-6">
-          <MdDashboard  size="2em" />
+          <MdDashboard size="2em" />
           <h1 className="text-lg font-semibold">
             Dash<span className="text-blue-400">Flow</span>
           </h1>
@@ -45,7 +64,6 @@ function Login() {
           </button>
         </div>
 
-      
         <form onSubmit={handleLogin}>
           <div className="mb-4">
             <label className="text-xs text-gray-400">EMAIL ADDRESS</label>

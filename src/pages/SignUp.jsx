@@ -1,11 +1,14 @@
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { UserContext } from "../UserContext";
+import { UserContext } from "../context/UserContect";
 import { MdDashboard } from "react-icons/md";
+import { useDispatch } from "react-redux";
+import { login } from "../features/auth/authSlice";
 
 function SignUp() {
   const navigate = useNavigate();
   const { addUser } = useContext(UserContext);
+  const dispatch = useDispatch();
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -23,12 +26,15 @@ function SignUp() {
     const newUser = {
       name,
       email,
+      password,
       role: "Viewer",
       status: "Active",
     };
 
     addUser(newUser);
-    localStorage.setItem("loggedInUser", JSON.stringify({ name, email }));
+    const role = "user";
+    localStorage.setItem("loggedInUser", JSON.stringify({ name, email, role }));
+    dispatch(login({ user: name, role }));
     navigate("/dashboard");
   };
 
@@ -36,7 +42,7 @@ function SignUp() {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#020617] via-[#020617] to-[#0f172a]">
       <div className="w-full max-w-md p-8 rounded-2xl bg-[#0b1220]/80 backdrop-blur-xl border border-white/10 shadow-2xl text-white mx-4">
         <div className="flex items-center gap-3 mb-6">
-           <MdDashboard  size="2em" />
+          <MdDashboard size="2em" />
           <h1 className="text-lg font-semibold">
             Dash<span className="text-blue-400">Flow</span>
           </h1>

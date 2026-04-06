@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { UserContext } from "../UserContext";
+import { UserContext } from "../context/UserContect";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
@@ -7,7 +7,7 @@ function Dashboard() {
   const [open, setOpen] = useState(false);
   const { users, addUser, isLoading } = useContext(UserContext);
 
- 
+
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -122,7 +122,7 @@ function Dashboard() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {users.map((user) => (
             <div
-              key={user.id}
+              key={`${user.id}-${user.email}`}
               className="bg-[#0b1220] p-4 rounded-xl border border-white/10"
             >
               <h2 className="font-semibold">{user.name}</h2>
@@ -135,11 +135,10 @@ function Dashboard() {
                 </span>
 
                 <span
-                  className={`text-xs ${
-                    user.status === "Active"
-                      ? "text-green-400"
-                      : "text-gray-400"
-                  }`}
+                  className={`text-xs ${user.status === "Active"
+                    ? "text-green-400"
+                    : "text-gray-400"
+                    }`}
                 >
                   ● {user.status}
                 </span>

@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { UserContext } from "../UserContext";
+import { UserContext } from "../context/UserContect";
 
 function Users() {
   const { users, setUsers } = useContext(UserContext);
@@ -47,7 +47,7 @@ function Users() {
 
           <tbody>
             {filteredUsers.map((user, index) => (
-              <tr key={user.id} className="border-b border-white/5">
+              <tr key={`${user.id}-${user.email}`} className="border-b border-white/5">
                 <td className="py-3">{user.name}</td>
                 <td className="text-gray-400">{user.email}</td>
 
@@ -66,11 +66,10 @@ function Users() {
                 <td>
                   <span
                     onClick={() => toggleStatus(index)}
-                    className={`cursor-pointer text-xs px-2 py-1 rounded ${
-                      user.status === "Active"
-                        ? "text-green-400"
-                        : "text-gray-400"
-                    }`}
+                    className={`cursor-pointer text-xs px-2 py-1 rounded ${user.status === "Active"
+                      ? "text-green-400"
+                      : "text-gray-400"
+                      }`}
                   >
                     ● {user.status}
                   </span>

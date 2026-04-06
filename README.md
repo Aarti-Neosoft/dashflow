@@ -58,3 +58,16 @@ Linting:
 - Dark / Light theme toggle
 - LocalStorage persistence (user + theme)
 - Clean component-based architecture
+
+
+Role-Based Authentication (RBAC)
+This project implements Role-Based Access Control using Redux Toolkit and React Router.
+
+## User Roles
+-Admin
+-User
+
+## Default Admin Credentials
+
+Email: admin123@gmail.com
+Password: 123456

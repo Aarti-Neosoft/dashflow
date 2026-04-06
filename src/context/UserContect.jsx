@@ -3,45 +3,39 @@ import { createContext, useEffect, useState } from "react";
 export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
- const defaultUsers = [
-  {
-    id: 1,
-    name: "Aarav Sharma",
-    email: "aarav.sharma@example.com",
-    role: "Viewer",
-    status: "Active",
-  },
-  {
-    id: 2,
-    name: "Priya Patel",
-    email: "priya.patel@example.com",
-    role: "Editor",
-    status: "Active",
-  },
-  {
-    id: 3,
-    name: "Rahul Verma",
-    email: "rahul.verma@example.com",
-    role: "Admin",
-    status: "Inactive",
-  },
-];
+  const defaultUsers = [
+    {
+      id: 9999,
+      name: "Admin",
+      email: "admin123@gmail.com",
+      password: "123456",
+      role: "Admin",
+      status: "Active",
+    },
+  ];
 
   const [users, setUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const storedUsers = localStorage.getItem("users");
-
     if (storedUsers) {
       try {
         const parsed = JSON.parse(storedUsers);
+        const adminExists = parsed.some(
+          (user) => user.email === "admin123@gmail.com"
+        );
 
-        if (Array.isArray(parsed) && parsed.length > 0) {
-          setUsers(parsed);
-          setIsLoading(false);
-          return;
+        let updatedUsers = parsed;
+
+        if (!adminExists) {
+          updatedUsers = [...parsed, ...defaultUsers];
         }
+
+        setUsers(updatedUsers);
+        localStorage.setItem("users", JSON.stringify(updatedUsers));
+        setIsLoading(false);
+        return;
       } catch (error) {
         localStorage.removeItem("users");
       }
