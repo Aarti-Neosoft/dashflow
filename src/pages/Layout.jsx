@@ -61,7 +61,7 @@ function Layout() {
     >
       <div
         className={`w-full lg:w-64 p-5 ${isDark
-          ? "bg-[#0b1220] border-b lg:border-b-0 lg:border-r border-white/10"
+          ? "bg-[#408A71] border-b lg:border-b-0 lg:border-r border-white/10"
           : "bg-white border-b lg:border-b-0 lg:border-r border-slate-200"
           }`}
       >
@@ -70,7 +70,7 @@ function Layout() {
           <h1
             className={`text-xl font-bold ${isDark ? "" : "text-slate-900"}`}
           >
-            Dash<span className="text-blue-400">Flow</span>
+            Dash<span className="text-black-400">Flow</span>
           </h1>
 
         </div>
@@ -81,7 +81,7 @@ function Layout() {
           className={({ isActive }) =>
             `block p-2 rounded mb-2 ${isActive
               ? isDark
-                ? "bg-blue-600/20 text-blue-400"
+                ? "bg-blue-600/20 text-black-400"
                 : "bg-blue-50 text-sky-600"
               : isDark
                 ? "hover:bg-white/5"
@@ -98,7 +98,7 @@ function Layout() {
             className={({ isActive }) =>
               `block p-2 rounded mb-2 ${isActive
                 ? isDark
-                  ? "bg-blue-600/20 text-blue-400"
+                  ? "bg-blue-600/20 text-black-400"
                   : "bg-blue-50 text-sky-600"
                 : isDark
                   ? "hover:bg-white/5"
@@ -116,7 +116,7 @@ function Layout() {
             className={({ isActive }) =>
               `block p-2 rounded mb-2 ${isActive
                 ? isDark
-                  ? "bg-blue-600/20 text-blue-400"
+                  ? "bg-blue-600/20 text-black-400"
                   : "bg-blue-50 text-sky-600"
                 : isDark
                   ? "hover:bg-white/5"
@@ -132,12 +132,12 @@ function Layout() {
       <div className="flex-1 flex flex-col">
         <div
           className={`flex flex-col sm:flex-row sm:items-center justify-between gap-4 px-4 sm:px-6 py-4 border-b ${isDark
-            ? "border-white/10 bg-[#0b1220]"
+            ? "border-white/10 bg-[#408A71]"
             : "border-slate-200 bg-slate-100"
             }`}
         >
           <h2 className="text-lg font-semibold">
-            Dash<span className="text-blue-400">Flow</span>
+            Dash<span className="text-black-400">Flow</span>
           </h2>
 
           <div className="flex flex-wrap items-center gap-4 relative">
@@ -201,8 +201,8 @@ function Layout() {
           </div>
         </div>
 
-        <div className="p-6">
-          <Outlet />
+        <div className={`p-6 ${isDark ? "bg-[#020617]" : "bg-gray-200"}`}>
+          <Outlet context={{ isDark }} />
         </div>
       </div>
     </div>

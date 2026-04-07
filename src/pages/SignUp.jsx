@@ -44,7 +44,7 @@ function SignUp() {
         <div className="flex items-center gap-3 mb-6">
           <MdDashboard size="2em" />
           <h1 className="text-lg font-semibold">
-            Dash<span className="text-blue-400">Flow</span>
+            Dash<span className="text-black-400">Flow</span>
           </h1>
         </div>
 
@@ -87,7 +87,7 @@ function SignUp() {
             />
           </div>
 
-          <button className="w-full py-3 rounded-lg bg-gradient-to-r from-blue-500 to-indigo-500 hover:opacity-90 transition">
+          <button className="w-full py-3 rounded-lg bg-black text-white hover:bg-gray-900 shadow-md transition duration-300">
             Create Account
           </button>
 
@@ -100,7 +100,7 @@ function SignUp() {
             <button
               type="button"
               onClick={() => navigate("/")}
-              className="text-blue-400 hover:underline"
+              className="text-black-400 hover:underline"
             >
               Sign In
             </button>

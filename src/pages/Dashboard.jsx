@@ -2,10 +2,12 @@ import { useState, useContext } from "react";
 import { UserContext } from "../context/UserContect";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { useOutletContext } from "react-router-dom";
 
 function Dashboard() {
   const [open, setOpen] = useState(false);
   const { users, addUser, isLoading } = useContext(UserContext);
+  const { isDark } = useOutletContext();
 
 
   const formik = useFormik({
@@ -33,7 +35,7 @@ function Dashboard() {
 
         <button
           onClick={() => setOpen(true)}
-          className="w-full sm:w-auto bg-blue-600 px-5 py-2 rounded-lg"
+          className="w-full sm:w-auto bg-white text-black px-5 py-2 rounded-lg"
         >
           + Add User
         </button>
@@ -41,7 +43,12 @@ function Dashboard() {
 
       {open && (
         <div className="fixed inset-0 bg-black/60 flex items-center justify-center">
-          <div className="bg-[#0b1220] p-6 rounded-xl w-full max-w-md mx-4 border border-white/10">
+          <div
+            className={`p-6 rounded-xl w-full max-w-md mx-4 border ${isDark
+              ? "bg-[#0b1220] border-white/10 text-white"
+              : "bg-white border-slate-200 text-black"
+              }`}
+          >
             <h2 className="text-lg font-semibold mb-4">Add New User</h2>
 
             <form onSubmit={formik.handleSubmit} className="space-y-4">
@@ -49,7 +56,10 @@ function Dashboard() {
                 type="text"
                 name="name"
                 placeholder="Enter Name"
-                className="w-full p-2 bg-[#020617] rounded border border-white/10"
+                className={`w-full p-2 rounded border ${isDark
+                  ? "bg-[#020617] border-white/10 text-white"
+                  : "bg-white border-slate-300 text-black"
+                  }`}
                 onChange={formik.handleChange}
                 value={formik.values.name}
               />
@@ -61,7 +71,10 @@ function Dashboard() {
                 type="email"
                 name="email"
                 placeholder="Enter Email"
-                className="w-full p-2 bg-[#020617] rounded border border-white/10"
+                className={`w-full p-2 rounded border ${isDark
+                  ? "bg-[#020617] border-white/10 text-white"
+                  : "bg-white border-slate-300 text-black"
+                  }`}
                 onChange={formik.handleChange}
                 value={formik.values.email}
               />
@@ -73,7 +86,10 @@ function Dashboard() {
                 name="role"
                 onChange={formik.handleChange}
                 value={formik.values.role}
-                className="w-full p-2 bg-[#020617] rounded"
+                className={`w-full p-2 rounded border ${isDark
+                  ? "bg-[#020617] border-white/10 text-white"
+                  : "bg-white border-slate-300 text-black"
+                  }`}
               >
                 <option>Admin</option>
                 <option>Editor</option>
@@ -84,7 +100,10 @@ function Dashboard() {
                 name="status"
                 onChange={formik.handleChange}
                 value={formik.values.status}
-                className="w-full p-2 bg-[#020617] rounded"
+                className={`w-full p-2 rounded border ${isDark
+                  ? "bg-[#020617] border-white/10 text-white"
+                  : "bg-white border-slate-300 text-black"
+                  }`}
               >
                 <option>Active</option>
                 <option>Inactive</option>
@@ -123,7 +142,10 @@ function Dashboard() {
           {users.map((user) => (
             <div
               key={`${user.id}-${user.email}`}
-              className="bg-[#0b1220] p-4 rounded-xl border border-white/10"
+              className={`p-4 rounded-xl border ${isDark
+                ? "bg-[#408A71] border-white/10"
+                : "bg-gray-400 border-slate-200"
+                }`}
             >
               <h2 className="font-semibold">{user.name}</h2>
 
